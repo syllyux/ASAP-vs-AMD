@@ -1,6 +1,6 @@
 `default_nettype none
 
-// Combinational MAC logic
+// Combinational MAC logic inside PE
 module mac #(parameter WIDTH = 8) (
   input  logic signed [WIDTH-1:0] wt_ch1, wt_ch2,
   input  logic signed [WIDTH-1:0] ch1_patch, ch2_patch,

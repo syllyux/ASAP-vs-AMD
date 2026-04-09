@@ -15,9 +15,9 @@ module processingElement #(parameter WIDTH = 8, LENGTH = 4) (
 
   logic signed [WIDTH*2:0] mac_result;
 
-  mac #(.WIDTH) MAC (
+  mac #(WIDTH) mcdonalds (
     .wt_ch1, .wt_ch2,
-    .ch1_patch[patch_idx], .ch2_patch[patch_idx],
+    .ch1_patch(ch1_patch[patch_idx]), .ch2_patch(ch2_patch[patch_idx]),
     .result(mac_result)
   );
 
@@ -53,8 +53,8 @@ module pePipeline #(parameter WIDTH = 8, LENGTH = 4) (
   logic   [LENGTH:0][WIDTH*2:0] psum_arr;
   logic              [LENGTH:0] valid_arr; 
 
-  psum_arr[0] = 'b0; 
-  valid_arr[0] = valid_in;
+  assign psum_arr[0] = 'b0; 
+  assign valid_arr[0] = valid_in;
 
   genvar i; 
   generate
@@ -64,7 +64,7 @@ module pePipeline #(parameter WIDTH = 8, LENGTH = 4) (
                                     .psum_in(psum_arr[i]), 
                                     .valid_in(valid_arr[i]), 
                                     .acc_clear, 
-                                    .clk, rst_l, 
+                                    .clk, .rst_l, 
                                     .patch_idx(i), 
                                     .valid_out(valid_arr[i+1]), 
                                     .psum_out(psum_arr[i+1])

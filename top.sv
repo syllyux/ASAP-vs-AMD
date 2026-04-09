@@ -1,5 +1,6 @@
 `default_nettype none
 
+// Module enclosing rows of kernel pipeline
 module top #(parameter WIDTH = 8, LENGTH = 4, ARR_NUM = 2) (
   input  logic signed [ARR_NUM-1:0][LENGTH-1:0][WIDTH-1:0] ch1_patch_arr, ch2_patch_arr,
   input  logic signed [ARR_NUM-1:0][LENGTH-1:0][WIDTH-1:0] wt_ch1_arr, wt_ch2_arr,
@@ -13,6 +14,7 @@ module top #(parameter WIDTH = 8, LENGTH = 4, ARR_NUM = 2) (
 
   genvar j; 
   generate
+    // generate the row for kernel A
     for (j = 0; j < LENGTH; j = j + 1) begin: g2
       pePipeline #(WIDTH, LENGTH) pipe(.ch1_patch(ch1_patch_arr[j]), 
                                        .ch2_patch(ch2_patch_arr[j]), 
@@ -26,3 +28,4 @@ module top #(parameter WIDTH = 8, LENGTH = 4, ARR_NUM = 2) (
   endgenerate
 
 endmodule: top
+
